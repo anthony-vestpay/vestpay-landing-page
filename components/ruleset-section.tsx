@@ -1,170 +1,68 @@
-"use client";
-
-import { useState } from "react";
-import { Check, Zap, Split, Clock, Shield } from "lucide-react";
-import { cn } from "@/lib/utils";
-
-const ruleExamples = [
-  {
-    id: "marketplace",
-    label: "Marketplace",
-    description: "Split payments between sellers and your platform",
-    config: {
-      name: "Marketplace Standard",
-      rules: [
-        { type: "percentage", recipient: "Seller", value: "85%", color: "bg-accent" },
-        { type: "percentage", recipient: "Platform Fee", value: "15%", color: "bg-primary" },
-      ],
-      conditions: ["Release on delivery confirmation", "Hold for 24h dispute window"],
-    },
-  },
-  {
-    id: "saas",
-    label: "SaaS",
-    description: "Revenue share with partners and affiliates",
-    config: {
-      name: "Partner Revenue Share",
-      rules: [
-        { type: "percentage", recipient: "Partner", value: "70%", color: "bg-accent" },
-        { type: "percentage", recipient: "Affiliate", value: "10%", color: "bg-chart-2" },
-        { type: "percentage", recipient: "Platform", value: "20%", color: "bg-primary" },
-      ],
-      conditions: ["Monthly payout cycle", "Minimum $100 threshold"],
-    },
-  },
-  {
-    id: "services",
-    label: "Services",
-    description: "Milestone-based payments for projects",
-    config: {
-      name: "Project Milestones",
-      rules: [
-        { type: "fixed", recipient: "Freelancer", value: "$500", color: "bg-accent" },
-        { type: "percentage", recipient: "Platform Fee", value: "10%", color: "bg-primary" },
-      ],
-      conditions: ["Release on milestone approval", "Escrow until client sign-off"],
-    },
-  },
-];
-
-const benefits = [
-  { icon: Zap, text: "No code required" },
-  { icon: Split, text: "Unlimited recipients" },
-  { icon: Clock, text: "Schedule payouts" },
-  { icon: Shield, text: "Built-in compliance" },
-];
+import { Sparkles, Zap, Users, Clock, Shield } from "lucide-react";
 
 export function RulesetSection() {
-  const [activeRule, setActiveRule] = useState(ruleExamples[0]);
-
   return (
-    <section className="py-24 md:py-32 bg-background">
+    <section className="py-24 md:py-32 bg-secondary/30 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6">
         {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16">
-          <div className="max-w-2xl">
-            <p className="text-sm font-medium text-accent mb-4">Ruleset Engine</p>
-            <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-foreground leading-[1.15]">
-              Configure once, automate forever
-            </h2>
-            <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-              Create powerful payment rules in minutes. No engineering resources needed.
-            </p>
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 border border-accent/20 text-sm text-accent font-medium mb-6">
+            <Sparkles className="h-4 w-4" />
+            No-code rules engine
           </div>
-          
-          {/* Benefits pills */}
-          <div className="flex flex-wrap gap-3">
-            {benefits.map((benefit, i) => (
-              <div key={i} className="flex items-center gap-2 px-4 py-2 bg-secondary rounded-lg border border-border">
-                <benefit.icon className="h-4 w-4 text-accent" />
-                <span className="text-sm text-foreground">{benefit.text}</span>
-              </div>
-            ))}
-          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-foreground leading-[1.1] mb-6">
+            Rules that just work
+          </h2>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            Define how money flows once. VestPay handles every payment automatically.
+          </p>
         </div>
 
-        {/* Main content */}
-        <div className="grid lg:grid-cols-5 gap-8">
-          {/* Rule selector */}
-          <div className="lg:col-span-2 space-y-3">
-            {ruleExamples.map((rule) => (
-              <button
-                key={rule.id}
-                onClick={() => setActiveRule(rule)}
-                className={cn(
-                  "w-full text-left p-5 rounded-xl border transition-all duration-200",
-                  activeRule.id === rule.id
-                    ? "bg-card border-accent/30 shadow-lg shadow-accent/5"
-                    : "bg-card/50 border-border hover:border-border/80 hover:bg-card"
-                )}
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="font-semibold text-foreground">{rule.label}</span>
-                  {activeRule.id === rule.id && (
-                    <div className="h-2 w-2 rounded-full bg-accent" />
-                  )}
-                </div>
-                <p className="text-sm text-muted-foreground">{rule.description}</p>
-              </button>
-            ))}
-          </div>
-
-          {/* Rule visualization */}
-          <div className="lg:col-span-3">
-            <div className="bg-card rounded-2xl border border-border overflow-hidden shadow-xl">
-              {/* Header */}
-              <div className="flex items-center justify-between px-6 py-4 bg-secondary/30 border-b border-border">
-                <div className="flex items-center gap-3">
-                  <div className="h-8 w-8 rounded-lg bg-accent/20 flex items-center justify-center">
-                    <Split className="h-4 w-4 text-accent" />
-                  </div>
-                  <span className="font-medium text-foreground">{activeRule.config.name}</span>
-                </div>
-                <span className="text-xs text-muted-foreground px-2 py-1 bg-secondary rounded">Active</span>
+        {/* Dashboard Screenshot */}
+        <div className="relative">
+          {/* Glow effect */}
+          <div className="absolute -inset-4 bg-gradient-to-br from-accent/10 via-transparent to-primary/10 rounded-3xl blur-3xl opacity-50" />
+          
+          <div className="relative rounded-2xl border border-border shadow-2xl overflow-hidden">
+            {/* Browser chrome */}
+            <div className="flex items-center gap-2 px-4 py-3 bg-secondary/80 border-b border-border">
+              <div className="flex items-center gap-1.5">
+                <div className="h-3 w-3 rounded-full bg-red-400" />
+                <div className="h-3 w-3 rounded-full bg-yellow-400" />
+                <div className="h-3 w-3 rounded-full bg-green-400" />
               </div>
-
-              {/* Rules */}
-              <div className="p-6">
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-4">Payment Split</p>
-                <div className="space-y-3 mb-8">
-                  {activeRule.config.rules.map((rule, i) => (
-                    <div key={i} className="flex items-center justify-between p-4 bg-secondary/50 rounded-xl">
-                      <div className="flex items-center gap-3">
-                        <div className={cn("h-3 w-3 rounded-full", rule.color)} />
-                        <span className="text-foreground font-medium">{rule.recipient}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs text-muted-foreground">{rule.type === "percentage" ? "Percentage" : "Fixed"}</span>
-                        <span className="text-lg font-semibold text-foreground">{rule.value}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Visual bar */}
-                <div className="h-3 rounded-full overflow-hidden flex mb-8">
-                  {activeRule.config.rules.map((rule, i) => (
-                    <div
-                      key={i}
-                      className={cn("h-full transition-all duration-500", rule.color)}
-                      style={{ width: rule.type === "percentage" ? rule.value : "auto", flex: rule.type === "fixed" ? 1 : undefined }}
-                    />
-                  ))}
-                </div>
-
-                {/* Conditions */}
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-4">Conditions</p>
-                <div className="space-y-2">
-                  {activeRule.config.conditions.map((condition, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                      <Check className="h-4 w-4 text-accent" />
-                      <span className="text-sm text-muted-foreground">{condition}</span>
-                    </div>
-                  ))}
+              <div className="flex-1 flex justify-center">
+                <div className="px-4 py-1 bg-background/50 rounded-md text-xs text-muted-foreground">
+                  dashboard.vestpay.co/rulesets
                 </div>
               </div>
             </div>
+            
+            {/* Screenshot */}
+            <img
+              src="/images/ruleset-dashboard.png"
+              alt="VestPay Dashboard showing Rulesets configuration with Standard Split, Premium Sellers, and New Sellers Promo rules"
+              className="w-full h-auto"
+            />
           </div>
+        </div>
+
+        {/* Bottom features */}
+        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+          {[
+            { icon: Zap, title: "Instant updates", desc: "Changes apply immediately" },
+            { icon: Users, title: "Unlimited splits", desc: "As many recipients as needed" },
+            { icon: Clock, title: "Scheduled payouts", desc: "Daily, weekly, or monthly" },
+            { icon: Shield, title: "Built-in compliance", desc: "KYC/AML handled" },
+          ].map((feature, i) => (
+            <div key={i} className="text-center p-6">
+              <div className="h-12 w-12 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-4">
+                <feature.icon className="h-6 w-6 text-accent" />
+              </div>
+              <h4 className="font-semibold text-foreground mb-1">{feature.title}</h4>
+              <p className="text-sm text-muted-foreground">{feature.desc}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
