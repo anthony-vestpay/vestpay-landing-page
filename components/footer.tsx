@@ -31,7 +31,7 @@ export function Footer() {
           <div className="flex flex-col gap-4">
             <p className="text-xs font-medium text-primary-foreground/40 uppercase tracking-wider">Company</p>
             <nav className="flex flex-col gap-3">
-              <a href="#" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+              <a href="/about" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">
                 About
               </a>
               <a href="#" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">
