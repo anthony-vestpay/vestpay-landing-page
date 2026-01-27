@@ -40,7 +40,7 @@ export function RulesetSection() {
             
             {/* Screenshot */}
             <img
-              src="/images/screenshot-202026-01-27-20at-2003.png"
+              src="/images/ruleset-dashboard.png"
               alt="VestPay Dashboard showing Rulesets configuration with Standard Split, Premium Sellers, and New Sellers Promo rules"
               className="w-full h-auto"
             />
