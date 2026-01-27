@@ -33,7 +33,7 @@ export function RulesetSection() {
               </div>
               <div className="flex-1 flex justify-center">
                 <div className="px-4 py-1 bg-background/50 rounded-md text-xs text-muted-foreground">
-                  dashboard.vestpay.com/rulesets
+                  dashboard.vestpay.co/rulesets
                 </div>
               </div>
             </div>
