@@ -54,7 +54,8 @@ export function CTASection() {
             <div className="hidden sm:block h-4 w-px bg-border" />
             <div className="flex items-center gap-2">
               <Check className="h-4 w-4 text-accent" />
-              <span>Free to start</span>
+              <span>First $50k processed free
+<br></span>
             </div>
             <div className="hidden sm:block h-4 w-px bg-border" />
             <div className="flex items-center gap-2">
