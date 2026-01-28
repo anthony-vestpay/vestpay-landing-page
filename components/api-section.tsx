@@ -1,25 +1,49 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Copy, Check, Terminal, Zap, Shield, Globe, Code2 } from "lucide-react";
+import { ArrowRight, Copy, Check, Terminal, Zap, Shield, Globe, Code2, Play, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 const codeExamples = [
   {
     id: "session",
-    label: "Create Session",
-    filename: "create-session.ts",
-    code: `const session = await vestpay.sessions.create({
-  amount: 125000, // $1,250.00
-  currency: "usd",
-  ruleset: "rs_marketplace_standard",
-  redirect_url: "https://yourapp.com/success",
-  ledger: "ldg_abc123"
-});
+    label: "Collect Payment",
+    filename: "collect-payment.ts",
+    isInteractive: true,
+    request: `POST /sessions
+Content-Type: application/json
+x-api-key: vp_test_xxx
 
-// Redirect customer to hosted payment page
-redirect(session.url);`,
+{
+  "platform_id": "plt_demo",
+  "vestpay_product_id": "vp_prod_123",
+  "customer": {
+    "external_customer_id": "cust_001",
+    "email": "user@example.com"
+  }
+}`,
+    response: `{
+  "id": "ses_123",
+  "amount": 500000,
+  "currency": "GBP",
+  "status": "pending",
+  "checkoutUrl": "https://checkout.stripe.com/c/pay/cs_test_123",
+  "stripeCheckoutSessionId": "cs_123",
+  "createdAt": "2026-01-28T00:00:00.000Z"
+}`,
+    code: `POST /sessions
+Content-Type: application/json
+x-api-key: vp_test_xxx
+
+{
+  "platform_id": "plt_demo",
+  "vestpay_product_id": "vp_prod_123",
+  "customer": {
+    "external_customer_id": "cust_001",
+    "email": "user@example.com"
+  }
+}`,
   },
   {
     id: "webhook",
@@ -78,11 +102,28 @@ const apiFeatures = [
 export function ApiSection() {
   const [activeExample, setActiveExample] = useState(codeExamples[0]);
   const [copied, setCopied] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showResponse, setShowResponse] = useState(false);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(activeExample.code);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleSendRequest = () => {
+    setIsLoading(true);
+    setShowResponse(false);
+    setTimeout(() => {
+      setIsLoading(false);
+      setShowResponse(true);
+    }, 1200);
+  };
+
+  const handleExampleChange = (example: typeof codeExamples[0]) => {
+    setActiveExample(example);
+    setShowResponse(false);
+    setIsLoading(false);
   };
 
   return (
@@ -111,7 +152,7 @@ export function ApiSection() {
                 {codeExamples.map((example) => (
                   <button
                     key={example.id}
-                    onClick={() => setActiveExample(example)}
+                    onClick={() => handleExampleChange(example)}
                     className={cn(
                       "px-4 py-2 text-sm font-medium rounded-lg transition-all",
                       activeExample.id === example.id
@@ -147,21 +188,91 @@ export function ApiSection() {
             </div>
 
             {/* Code content */}
-            <div className="p-4 md:p-6 overflow-x-auto">
-              <pre className="text-xs md:text-sm leading-relaxed">
-                <code className="font-mono">
-                  {activeExample.code.split("\n").map((line, i) => (
-                    <div key={i} className="flex hover:bg-white/5 -mx-4 md:-mx-6 px-4 md:px-6">
-                      <span className="w-6 md:w-8 text-white/20 text-right mr-4 md:mr-6 select-none text-xs shrink-0">
-                        {i + 1}
+            <div className="flex flex-col lg:flex-row">
+              {/* Request */}
+              <div className={cn(
+                "p-4 md:p-6 overflow-x-auto flex-1",
+                activeExample.isInteractive && "lg:border-r lg:border-white/10"
+              )}>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-medium text-white/40 uppercase tracking-wider">Request</span>
+                  {activeExample.isInteractive && (
+                    <button
+                      onClick={handleSendRequest}
+                      disabled={isLoading}
+                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-accent text-accent-foreground rounded-md hover:bg-accent/90 transition-colors disabled:opacity-50"
+                    >
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="h-3 w-3 animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <Play className="h-3 w-3" />
+                          Send Request
+                        </>
+                      )}
+                    </button>
+                  )}
+                </div>
+                <pre className="text-xs md:text-sm leading-relaxed">
+                  <code className="font-mono">
+                    {activeExample.code.split("\n").map((line, i) => (
+                      <div key={i} className="flex hover:bg-white/5 -mx-4 md:-mx-6 px-4 md:px-6">
+                        <span className="w-6 md:w-8 text-white/20 text-right mr-4 md:mr-6 select-none text-xs shrink-0">
+                          {i + 1}
+                        </span>
+                        <span className="text-white/90 whitespace-pre">
+                          {highlightSyntax(line)}
+                        </span>
+                      </div>
+                    ))}
+                  </code>
+                </pre>
+              </div>
+
+              {/* Response */}
+              {activeExample.isInteractive && (
+                <div className="p-4 md:p-6 overflow-x-auto flex-1 border-t lg:border-t-0 border-white/10 bg-white/[0.02]">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xs font-medium text-white/40 uppercase tracking-wider">Response</span>
+                    {showResponse && (
+                      <span className="flex items-center gap-1.5 text-xs text-emerald-400">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                        200 OK
                       </span>
-                      <span className="text-white/90 whitespace-pre">
-                        {highlightSyntax(line)}
-                      </span>
+                    )}
+                  </div>
+                  {!showResponse && !isLoading && (
+                    <div className="flex items-center justify-center h-32 text-white/30 text-sm">
+                      Click "Send Request" to see the response
                     </div>
-                  ))}
-                </code>
-              </pre>
+                  )}
+                  {isLoading && (
+                    <div className="flex items-center justify-center h-32 text-white/30 text-sm">
+                      <Loader2 className="h-5 w-5 animate-spin mr-2" />
+                      Processing request...
+                    </div>
+                  )}
+                  {showResponse && activeExample.response && (
+                    <pre className="text-xs md:text-sm leading-relaxed">
+                      <code className="font-mono">
+                        {activeExample.response.split("\n").map((line, i) => (
+                          <div key={i} className="flex hover:bg-white/5 -mx-4 md:-mx-6 px-4 md:px-6">
+                            <span className="w-6 md:w-8 text-white/20 text-right mr-4 md:mr-6 select-none text-xs shrink-0">
+                              {i + 1}
+                            </span>
+                            <span className="text-white/90 whitespace-pre">
+                              {highlightSyntax(line)}
+                            </span>
+                          </div>
+                        ))}
+                      </code>
+                    </pre>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
