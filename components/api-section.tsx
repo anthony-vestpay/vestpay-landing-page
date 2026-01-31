@@ -9,26 +9,32 @@ const codeExamples = [
   {
     id: "session",
     label: "Collect Payment",
-    filename: "create-session.sh",
+    filename: "create-session.ts",
     isInteractive: true,
-    request: `curl -X POST "\${API_URL}/api/v1/sessions" \\
-  -H "Content-Type: application/json" \\
-  -H "x-api-key: \${API_KEY}" \\
-  -d '{
-    "amount": 10000,
-    "currency": "GBP",
-    "ruleset_id": "rs_abc123",
-    "platform_id": "plt_demo",
-    "platform_account_id": "acc_platform",
-    "destination_account_id": "acc_recipient",
-    "customer": {
-      "email": "customer@example.com"
+    request: `const response = await fetch(\`\${API_URL}/api/v1/sessions\`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "x-api-key": API_KEY,
+  },
+  body: JSON.stringify({
+    amount: 10000,
+    currency: "GBP",
+    ruleset_id: "rs_abc123",
+    platform_id: "plt_demo",
+    platform_account_id: "acc_platform",
+    destination_account_id: "acc_recipient",
+    customer: {
+      email: "customer@example.com",
     },
-    "metadata": {
-      "order_id": "order_12345",
-      "timestamp": "2026-01-31T02:30:00Z"
-    }
-  }'`,
+    metadata: {
+      order_id: "order_12345",
+      timestamp: new Date().toISOString(),
+    },
+  }),
+});
+
+const session = await response.json();`,
     response: `{
   "session_id": "ses_abc123def456",
   "event_id": "evt_789xyz",
@@ -38,24 +44,30 @@ const codeExamples = [
   "status": "pending",
   "created_at": "2026-01-31T02:30:00.000Z"
 }`,
-    code: `curl -X POST "\${API_URL}/api/v1/sessions" \\
-  -H "Content-Type: application/json" \\
-  -H "x-api-key: \${API_KEY}" \\
-  -d '{
-    "amount": 10000,
-    "currency": "GBP",
-    "ruleset_id": "rs_abc123",
-    "platform_id": "plt_demo",
-    "platform_account_id": "acc_platform",
-    "destination_account_id": "acc_recipient",
-    "customer": {
-      "email": "customer@example.com"
+    code: `const response = await fetch(\`\${API_URL}/api/v1/sessions\`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "x-api-key": API_KEY,
+  },
+  body: JSON.stringify({
+    amount: 10000,
+    currency: "GBP",
+    ruleset_id: "rs_abc123",
+    platform_id: "plt_demo",
+    platform_account_id: "acc_platform",
+    destination_account_id: "acc_recipient",
+    customer: {
+      email: "customer@example.com",
     },
-    "metadata": {
-      "order_id": "order_12345",
-      "timestamp": "2026-01-31T02:30:00Z"
-    }
-  }'`,
+    metadata: {
+      order_id: "order_12345",
+      timestamp: new Date().toISOString(),
+    },
+  }),
+});
+
+const session = await response.json();`,
   },
   {
     id: "webhook",
