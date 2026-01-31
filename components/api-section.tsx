@@ -34,7 +34,10 @@ const codeExamples = [
   }),
 });
 
-const session = await response.json();`,
+const session = await response.json();
+
+// Redirect customer to checkout
+window.location.href = session.checkout_url;`,
     response: `{
   "session_id": "ses_abc123def456",
   "event_id": "evt_789xyz",
@@ -67,7 +70,10 @@ const session = await response.json();`,
   }),
 });
 
-const session = await response.json();`,
+const session = await response.json();
+
+// Redirect customer to checkout
+window.location.href = session.checkout_url;`,
   },
   {
     id: "webhook",
