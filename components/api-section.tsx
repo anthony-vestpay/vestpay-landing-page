@@ -9,41 +9,53 @@ const codeExamples = [
   {
     id: "session",
     label: "Collect Payment",
-    filename: "collect-payment.ts",
+    filename: "create-session.sh",
     isInteractive: true,
-    request: `POST /sessions
-Content-Type: application/json
-x-api-key: vp_test_xxx
-
-{
-  "platform_id": "plt_demo",
-  "vestpay_product_id": "vp_prod_123",
-  "customer": {
-    "external_customer_id": "cust_001",
-    "email": "user@example.com"
-  }
-}`,
+    request: `curl -X POST "\${API_URL}/api/v1/sessions" \\
+  -H "Content-Type: application/json" \\
+  -H "x-api-key: \${API_KEY}" \\
+  -d '{
+    "amount": 10000,
+    "currency": "GBP",
+    "ruleset_id": "rs_abc123",
+    "platform_id": "plt_demo",
+    "platform_account_id": "acc_platform",
+    "destination_account_id": "acc_recipient",
+    "customer": {
+      "email": "customer@example.com"
+    },
+    "metadata": {
+      "order_id": "order_12345",
+      "timestamp": "2026-01-31T02:30:00Z"
+    }
+  }'`,
     response: `{
-  "id": "ses_123",
-  "amount": 500000,
+  "session_id": "ses_abc123def456",
+  "event_id": "evt_789xyz",
+  "checkout_url": "https://checkout.stripe.com/c/pay/cs_live_...",
+  "amount": 10000,
   "currency": "GBP",
   "status": "pending",
-  "checkoutUrl": "https://checkout.stripe.com/c/pay/cs_test_123",
-  "stripeCheckoutSessionId": "cs_123",
-  "createdAt": "2026-01-28T00:00:00.000Z"
+  "created_at": "2026-01-31T02:30:00.000Z"
 }`,
-    code: `POST /sessions
-Content-Type: application/json
-x-api-key: vp_test_xxx
-
-{
-  "platform_id": "plt_demo",
-  "vestpay_product_id": "vp_prod_123",
-  "customer": {
-    "external_customer_id": "cust_001",
-    "email": "user@example.com"
-  }
-}`,
+    code: `curl -X POST "\${API_URL}/api/v1/sessions" \\
+  -H "Content-Type: application/json" \\
+  -H "x-api-key: \${API_KEY}" \\
+  -d '{
+    "amount": 10000,
+    "currency": "GBP",
+    "ruleset_id": "rs_abc123",
+    "platform_id": "plt_demo",
+    "platform_account_id": "acc_platform",
+    "destination_account_id": "acc_recipient",
+    "customer": {
+      "email": "customer@example.com"
+    },
+    "metadata": {
+      "order_id": "order_12345",
+      "timestamp": "2026-01-31T02:30:00Z"
+    }
+  }'`,
   },
   {
     id: "webhook",
