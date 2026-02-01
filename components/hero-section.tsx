@@ -205,6 +205,7 @@ export function HeroSection() {
                         </div>
                         <span className="text-sm font-medium text-foreground">Disburse</span>
                       </div>
+                      <p className="text-xs text-muted-foreground mb-2">Payout</p>
                       <div className="space-y-2">
                         {activeWorkflow.disbursement.map((recipient, i) => (
                           <div key={i} className="flex items-center justify-between">
