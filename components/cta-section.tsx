@@ -34,7 +34,7 @@ export function CTASection() {
                             className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 px-8 h-14 text-base shadow-lg shadow-primary/20"
                             asChild
                         >
-                            <a href="https://app.vestpay.co">
+                            <a href="https://app.vestpay.co/signup">
                                 Start Building
                                 <ArrowRight className="ml-2 h-4 w-4" />
                             </a>

@@ -19,7 +19,7 @@ export function SolutionCTA() {
                             className="text-lg px-8"
                             asChild
                         >
-                            <a href="https://app.vestpay.co">
+                            <a href="https://app.vestpay.co/signup">
                                 Start Free Trial
                             </a>
                         </Button>

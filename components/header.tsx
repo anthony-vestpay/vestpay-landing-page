@@ -10,12 +10,12 @@ export function Header() {
 
                 <div className="flex items-center gap-3">
                     <Button variant="ghost" size="sm" asChild>
-                        <a href="https://app.vestpay.co/signin">
+                        <a href="https://app.vestpay.co/login">
                             Sign In
                         </a>
                     </Button>
                     <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90" asChild>
-                        <a href="https://app.vestpay.co">
+                        <a href="https://app.vestpay.co/signup">
                             Start Building
                             <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
                         </a>
