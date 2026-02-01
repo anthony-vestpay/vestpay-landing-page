@@ -125,8 +125,7 @@ export function HeroSection() {
             
             <div className="relative bg-card border border-border rounded-2xl shadow-xl overflow-hidden">
               {/* Header with workflow selector */}
-              <div className="flex items-center justify-center md:justify-between px-6 py-4 border-b border-border bg-secondary/20">
-                <span className="hidden md:block text-sm font-medium text-foreground">Payment Flow</span>
+              <div className="flex items-center justify-center px-6 py-4 border-b border-border bg-secondary/20">
                 <div className="flex items-center gap-1 bg-secondary rounded-lg p-1">
                   {workflows.map((workflow) => (
                     <button
@@ -206,6 +205,7 @@ export function HeroSection() {
                         </div>
                         <span className="text-sm font-medium text-foreground">Disburse</span>
                       </div>
+                      <p className="text-xs text-muted-foreground mb-2">Payout</p>
                       <div className="space-y-2">
                         {activeWorkflow.disbursement.map((recipient, i) => (
                           <div key={i} className="flex items-center justify-between">

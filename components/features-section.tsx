@@ -1,10 +1,10 @@
-import { Workflow, CreditCard, Users, Split, FileSearch, Zap } from "lucide-react";
+import { RotateCcw, CreditCard, Users, Split, FileSearch, Zap } from "lucide-react";
 
 const features = [
   {
-    icon: Workflow,
-    title: "Rules Engine",
-    description: "Automate complex disbursements with percentage splits, fixed amounts, and conditional logic.",
+    icon: RotateCcw,
+    title: "Refunds & Disputes",
+    description: "Handle refunds and chargebacks automatically with proportional reversals across all recipients.",
     highlight: true,
   },
   {

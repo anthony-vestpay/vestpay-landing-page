@@ -14,7 +14,7 @@ export function RulesetSection() {
             Rules that just work
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Define how money flows once. VestPay handles every payment automatically.
+            Define how money flows. VestPay handles every payment automatically.
           </p>
         </div>
 

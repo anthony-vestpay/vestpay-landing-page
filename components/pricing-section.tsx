@@ -5,12 +5,12 @@ const tiers = [
   {
     name: "Starter",
     description: "Perfect for getting started with platform payments",
-    price: "$0",
+    price: "$99",
     period: "monthly",
     gmv: "0.5% per transaction",
     highlight: false,
     features: [
-      "First $50k processed free",
+      "Up to $100k processed monthly",
       "Basic split rules",
       "Hosted checkout",
       "Email support",
@@ -21,7 +21,7 @@ const tiers = [
   {
     name: "Growth",
     description: "For scaling platforms with advanced needs",
-    price: "$99",
+    price: "$199",
     period: "monthly",
     gmv: "0.3% per transaction",
     highlight: true,
@@ -40,7 +40,7 @@ const tiers = [
     description: "For high-volume platforms requiring custom solutions",
     price: "Custom",
     period: null,
-    gmv: "0.15% - 0.25% per transaction",
+    gmv: "Volume pricing",
     highlight: false,
     features: [
       "Everything in Growth",
@@ -65,7 +65,7 @@ export function PricingSection() {
             Simple, transparent pricing
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Start free, scale as you grow. No hidden fees, no surprises.
+            Transparent pricing that scales with you. No hidden fees, no surprises.
           </p>
         </div>
 

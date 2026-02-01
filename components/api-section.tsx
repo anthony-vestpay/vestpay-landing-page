@@ -1,56 +1,38 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Copy, Check, Terminal, Zap, Shield, Globe, Code2 } from "lucide-react";
+import { ArrowRight, Copy, Check, Terminal, Zap, Shield, Globe, Code2, Play, Loader2 } from "lucide-react";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
 
-const codeExamples = [
-  {
-    id: "session",
-    label: "Create Session",
-    filename: "create-session.ts",
-    code: `const session = await vestpay.sessions.create({
-  amount: 125000, // $1,250.00
-  currency: "usd",
-  ruleset: "rs_marketplace_standard",
-  redirect_url: "https://yourapp.com/success",
-  ledger: "ldg_abc123"
-});
 
-// Redirect customer to hosted payment page
-redirect(session.url);`,
-  },
-  {
-    id: "webhook",
-    label: "Handle Webhook",
-    filename: "webhook-handler.ts",
-    code: `app.post("/webhook", async (req, res) => {
-  const event = vestpay.webhooks.verify(
-    req.body,
-    req.headers["vestpay-signature"]
-  );
+const codeExample = {
+  id: "session",
+  label: "Collect Payment",
+  filename: "POST /session",
+  isInteractive: true,
+  code: `POST /session
+Content-Type: application/json
+Authorization: Bearer vestpay_sk_xxx
 
-  if (event.type === "payment.completed") {
-    await fulfillOrder(event.data.session_id);
+{
+  "amount": 2000,
+  "currency": "GBP",
+  "ruleset_id": "ruleset_xxx",
+  "recipient_id": "rec_xxx",
+  "customer": {
+    "email": "customer@example.com"
   }
-
-  res.status(200).send("OK");
-});`,
-  },
-  {
-    id: "payout",
-    label: "Manual Payout",
-    filename: "trigger-payout.ts",
-    code: `// Release escrow and trigger payout
-const payout = await vestpay.payouts.create({
-  session_id: "ses_abc123",
-  ledger: "ldg_abc123"
-});
-
-console.log(payout.status); // "processing"`,
-  },
-];
+}`,
+  response: `{
+  "session_id": "ses_abc123def456",
+  "event_id": "evt_789xyz012abc",
+  "checkout_url": "https://checkout.vestpay.io/ses_abc123def456",
+  "amount": 2000,
+  "currency": "GBP",
+  "status": "pending",
+  "created_at": "2026-01-31T02:30:00.000Z"
+}`,
+};
 
 const apiFeatures = [
   {
@@ -76,13 +58,23 @@ const apiFeatures = [
 ];
 
 export function ApiSection() {
-  const [activeExample, setActiveExample] = useState(codeExamples[0]);
   const [copied, setCopied] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showResponse, setShowResponse] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(activeExample.code);
+    navigator.clipboard.writeText(codeExample.code);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleSendRequest = () => {
+    setIsLoading(true);
+    setShowResponse(false);
+    setTimeout(() => {
+      setIsLoading(false);
+      setShowResponse(true);
+    }, 1200);
   };
 
   return (
@@ -105,63 +97,113 @@ export function ApiSection() {
         {/* Code Examples */}
         <div className="mb-20">
           <div className="bg-[#0a0a0a] rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-            {/* Tabs */}
+            {/* Header */}
             <div className="flex items-center justify-between border-b border-white/10 px-4 py-3 bg-white/5">
-              <div className="flex items-center gap-1">
-                {codeExamples.map((example) => (
-                  <button
-                    key={example.id}
-                    onClick={() => setActiveExample(example)}
-                    className={cn(
-                      "px-4 py-2 text-sm font-medium rounded-lg transition-all",
-                      activeExample.id === example.id
-                        ? "bg-white/10 text-white"
-                        : "text-white/50 hover:text-white/80 hover:bg-white/5"
-                    )}
-                  >
-                    {example.label}
-                  </button>
-                ))}
-              </div>
-              <div className="flex items-center gap-4">
-                <span className="text-xs text-white/40 font-mono hidden sm:block">
-                  {activeExample.filename}
+              <div className="flex items-center gap-2">
+                <span className="px-3 py-1.5 text-sm font-medium bg-accent/20 text-accent rounded-md">
+                  {codeExample.label}
                 </span>
-                <button
-                  onClick={handleCopy}
-                  className="flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 transition-colors"
-                >
-                  {copied ? (
-                    <>
-                      <Check className="h-3.5 w-3.5" />
-                      <span className="hidden sm:inline">Copied</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="h-3.5 w-3.5" />
-                      <span className="hidden sm:inline">Copy</span>
-                    </>
-                  )}
-                </button>
+                <span className="text-xs text-white/40 font-mono hidden sm:block">
+                  {codeExample.filename}
+                </span>
               </div>
+              <button
+                onClick={handleCopy}
+                className="flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 transition-colors"
+              >
+                {copied ? (
+                  <>
+                    <Check className="h-3.5 w-3.5" />
+                    <span className="hidden sm:inline">Copied</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="h-3.5 w-3.5" />
+                    <span className="hidden sm:inline">Copy</span>
+                  </>
+                )}
+              </button>
             </div>
 
             {/* Code content */}
-            <div className="p-4 md:p-6 overflow-x-auto">
-              <pre className="text-xs md:text-sm leading-relaxed">
-                <code className="font-mono">
-                  {activeExample.code.split("\n").map((line, i) => (
-                    <div key={i} className="flex hover:bg-white/5 -mx-4 md:-mx-6 px-4 md:px-6">
-                      <span className="w-6 md:w-8 text-white/20 text-right mr-4 md:mr-6 select-none text-xs shrink-0">
-                        {i + 1}
-                      </span>
-                      <span className="text-white/90 whitespace-pre">
-                        {highlightSyntax(line)}
-                      </span>
-                    </div>
-                  ))}
-                </code>
-              </pre>
+            <div className="flex flex-col lg:flex-row">
+              {/* Request */}
+              <div className="p-4 md:p-6 overflow-x-auto flex-1 lg:border-r lg:border-white/10">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-medium text-white/40 uppercase tracking-wider">Request</span>
+                  <button
+                    onClick={handleSendRequest}
+                    disabled={isLoading}
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-accent text-accent-foreground rounded-md hover:bg-accent/90 transition-colors disabled:opacity-50"
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="h-3 w-3 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Play className="h-3 w-3" />
+                        Send Request
+                      </>
+                    )}
+                  </button>
+                </div>
+                <pre className="text-xs md:text-sm leading-relaxed">
+                  <code className="font-mono">
+                    {codeExample.code.split("\n").map((line, i) => (
+                      <div key={i} className="flex hover:bg-white/5 -mx-4 md:-mx-6 px-4 md:px-6">
+                        <span className="w-6 md:w-8 text-white/20 text-right mr-4 md:mr-6 select-none text-xs shrink-0">
+                          {i + 1}
+                        </span>
+                        <span className="text-white/90 whitespace-pre">
+                          {highlightSyntax(line)}
+                        </span>
+                      </div>
+                    ))}
+                  </code>
+                </pre>
+              </div>
+
+              {/* Response */}
+              <div className="p-4 md:p-6 overflow-x-auto flex-1 border-t lg:border-t-0 border-white/10 bg-white/[0.02]">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-medium text-white/40 uppercase tracking-wider">Response</span>
+                  {showResponse && (
+                    <span className="flex items-center gap-1.5 text-xs text-emerald-400">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                      200 OK
+                    </span>
+                  )}
+                </div>
+                {!showResponse && !isLoading && (
+                  <div className="flex items-center justify-center h-32 text-white/30 text-sm">
+                    Click "Send Request" to see the response
+                  </div>
+                )}
+                {isLoading && (
+                  <div className="flex items-center justify-center h-32 text-white/30 text-sm">
+                    <Loader2 className="h-5 w-5 animate-spin mr-2" />
+                    Processing request...
+                  </div>
+                )}
+                {showResponse && (
+                  <pre className="text-xs md:text-sm leading-relaxed">
+                    <code className="font-mono">
+                      {codeExample.response.split("\n").map((line, i) => (
+                        <div key={i} className="flex hover:bg-white/5 -mx-4 md:-mx-6 px-4 md:px-6">
+                          <span className="w-6 md:w-8 text-white/20 text-right mr-4 md:mr-6 select-none text-xs shrink-0">
+                            {i + 1}
+                          </span>
+                          <span className="text-white/90 whitespace-pre">
+                            {highlightSyntax(line)}
+                          </span>
+                        </div>
+                      ))}
+                    </code>
+                  </pre>
+                )}
+              </div>
             </div>
           </div>
         </div>
