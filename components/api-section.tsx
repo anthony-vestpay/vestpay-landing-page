@@ -25,6 +25,7 @@ Authorization: Bearer vestpay_sk_xxx
 }`,
   response: `{
   "session_id": "ses_abc123def456",
+  "event_id": "evt_789xyz012abc",
   "checkout_url": "https://checkout.vestpay.io/ses_abc123def456",
   "amount": 2000,
   "currency": "GBP",
