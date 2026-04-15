@@ -27,8 +27,11 @@ export function SolutionCTA() {
                             size="lg"
                             variant="outline"
                             className="text-lg px-8 bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+                            asChild
                         >
-                            Schedule a Demo
+                            <a href="https://calendly.com/anthony-vestpay" target="_blank" rel="noopener noreferrer">
+                                Schedule a Demo
+                            </a>
                         </Button>
                     </div>
                     <p className="mt-6 text-sm opacity-75">

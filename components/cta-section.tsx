@@ -43,8 +43,11 @@ export function CTASection() {
                             variant="outline"
                             size="lg"
                             className="w-full sm:w-auto px-8 h-14 text-base border-border bg-secondary/50 hover:bg-secondary hover:border-foreground/20 text-foreground hover:text-foreground transition-all"
+                            asChild
                         >
-                            Request a Demo
+                            <a href="https://calendly.com/anthony-vestpay" target="_blank" rel="noopener noreferrer">
+                                Request a Demo
+                            </a>
                         </Button>
                     </div>
 
