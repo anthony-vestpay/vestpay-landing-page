@@ -23,7 +23,7 @@ const features = [
         icon: Split,
         title: "Multi-Recipient Splits",
         description:
-            "Split payments between any number of recipients with custom percentage or fixed rules.",
+            "Split payments between any number of recipients with custom percentage or fixed-amount rules.",
     },
     {
         icon: Zap,
@@ -41,14 +41,14 @@ const features = [
 
 export function FeaturesSection() {
     return (
-        <section id="features" className="py-24 md:py-32 bg-secondary/30">
+        <section id="features" className="py-24 md:py-32 bg-secondary/20">
             <div className="mx-auto max-w-7xl px-6">
                 {/* Header */}
-                <div className="max-w-3xl mb-14">
-                    <p className="text-xs font-semibold tracking-[0.08em] uppercase text-accent mb-4">
+                <div className="mb-16 max-w-3xl">
+                    <p className="mb-4 text-xs font-semibold tracking-[0.1em] uppercase text-accent">
                         The Solution
                     </p>
-                    <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-foreground leading-[1.15]">
+                    <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-foreground leading-[1.12]">
                         Everything you need for platform payments
                     </h2>
                     <p className="mt-5 text-lg text-muted-foreground leading-relaxed">
@@ -57,22 +57,30 @@ export function FeaturesSection() {
                     </p>
                 </div>
 
-                {/* Tonal grid — no borders per DESIGN.md */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+                {/* Feature grid */}
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {features.map((feature, index) => (
                         <div
                             key={index}
-                            className="group p-6 md:p-8 rounded-[6px] bg-background hover:bg-card transition-colors duration-200 shadow-sm hover:shadow-md"
+                            className="group relative flex flex-col p-6 md:p-7 rounded-xl bg-card border border-border hover:border-accent/30 hover:shadow-md transition-all duration-200"
                         >
-                            <div className="h-10 w-10 rounded-[6px] bg-secondary flex items-center justify-center mb-5">
-                                <feature.icon className="h-5 w-5 text-accent" strokeWidth={1.5} />
+                            {/* Icon */}
+                            <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-secondary group-hover:bg-accent/10 transition-colors duration-200">
+                                <feature.icon
+                                    className="h-5 w-5 text-muted-foreground group-hover:text-accent transition-colors duration-200"
+                                    strokeWidth={1.5}
+                                />
                             </div>
-                            <h3 className="text-base font-semibold text-foreground mb-2">
+
+                            <h3 className="mb-2 text-[0.9375rem] font-semibold text-foreground">
                                 {feature.title}
                             </h3>
                             <p className="text-sm text-muted-foreground leading-relaxed">
                                 {feature.description}
                             </p>
+
+                            {/* Subtle corner accent */}
+                            <div className="absolute bottom-0 right-0 h-16 w-16 rounded-xl bg-gradient-to-tl from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                         </div>
                     ))}
                 </div>

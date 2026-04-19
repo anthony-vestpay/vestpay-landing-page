@@ -1,44 +1,59 @@
 import { Sparkles, Zap, Users, Clock, Shield } from "lucide-react";
 
+const featurePoints = [
+    { icon: Zap, title: "Instant updates", desc: "Changes apply immediately to all future transactions" },
+    { icon: Users, title: "Unlimited splits", desc: "As many recipients as your platform needs" },
+    { icon: Clock, title: "Scheduled payouts", desc: "Daily, weekly, or on any custom cadence" },
+    { icon: Shield, title: "Built-in compliance", desc: "KYC/AML handled so you stay compliant by default" },
+];
+
 export function RulesetSection() {
     return (
-        <section className="py-24 md:py-32 bg-secondary/30 overflow-hidden">
+        <section className="py-24 md:py-32 bg-background overflow-hidden">
             <div className="mx-auto max-w-7xl px-6">
                 {/* Header */}
-                <div className="text-center mb-16">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 border border-accent/20 text-sm text-accent font-medium mb-6">
-                        <Sparkles className="h-4 w-4" />
+                <div className="mb-14 text-center">
+                    <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent/8 px-4 py-1.5 text-xs font-medium text-accent">
+                        <Sparkles className="h-3.5 w-3.5" />
                         No-code rules engine
                     </div>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-foreground leading-[1.1] mb-6">
+                    <h2 className="text-4xl md:text-5xl lg:text-[3.25rem] font-semibold tracking-tight text-foreground leading-[1.1] mb-5">
                         Rules that just work
                     </h2>
-                    <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-                        Define how money flows. VestPay handles every payment automatically.
+                    <p className="mx-auto max-w-xl text-lg text-muted-foreground leading-relaxed">
+                        Define how money flows once. VestPay handles every payment
+                        automatically — no code changes required.
                     </p>
                 </div>
 
-                {/* Dashboard Screenshot */}
+                {/* Dashboard screenshot */}
                 <div className="relative">
-                    {/* Glow effect */}
-                    <div className="absolute -inset-4 bg-gradient-to-br from-accent/10 via-transparent to-primary/10 rounded-3xl blur-3xl opacity-50" />
+                    {/* Glow */}
+                    <div
+                        aria-hidden
+                        className="pointer-events-none absolute -inset-8 rounded-3xl blur-3xl"
+                        style={{
+                            background:
+                                "radial-gradient(ellipse at 50% 60%, oklch(0.48 0.15 162 / 0.08) 0%, transparent 65%)",
+                        }}
+                    />
 
-                    <div className="relative rounded-2xl border border-border shadow-2xl overflow-hidden">
+                    <div className="relative rounded-2xl border border-border shadow-2xl shadow-black/8 overflow-hidden">
                         {/* Browser chrome */}
-                        <div className="flex items-center gap-2 px-4 py-3 bg-secondary/80 border-b border-border">
+                        <div className="flex items-center gap-2 border-b border-border bg-secondary/70 px-4 py-3">
                             <div className="flex items-center gap-1.5">
                                 <div className="h-3 w-3 rounded-full bg-red-400" />
                                 <div className="h-3 w-3 rounded-full bg-yellow-400" />
                                 <div className="h-3 w-3 rounded-full bg-green-400" />
                             </div>
-                            <div className="flex-1 flex justify-center">
-                                <div className="px-4 py-1 bg-background/50 rounded-md text-xs text-muted-foreground">
+                            <div className="flex flex-1 justify-center">
+                                <div className="flex items-center gap-2 rounded-md bg-background/50 px-4 py-1 text-xs text-muted-foreground">
+                                    <span className="h-3 w-3 rounded-full border border-border" />
                                     app.vestpay.co/rulesets
                                 </div>
                             </div>
                         </div>
 
-                        {/* Screenshot */}
                         <img
                             src="/images/ruleset-dashboard.png"
                             alt="VestPay Dashboard showing Rulesets configuration with Standard Split, Premium Sellers, and New Sellers Promo rules"
@@ -47,20 +62,19 @@ export function RulesetSection() {
                     </div>
                 </div>
 
-                {/* Bottom features */}
+                {/* Feature points below screenshot */}
                 <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
-                    {[
-                        { icon: Zap, title: "Instant updates", desc: "Changes apply immediately" },
-                        { icon: Users, title: "Unlimited splits", desc: "As many recipients as needed" },
-                        { icon: Clock, title: "Scheduled payouts", desc: "Daily, weekly, or monthly" },
-                        { icon: Shield, title: "Built-in compliance", desc: "KYC/AML handled" },
-                    ].map((feature, i) => (
-                        <div key={i} className="text-center p-6">
-                            <div className="h-12 w-12 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-4">
-                                <feature.icon className="h-6 w-6 text-accent" />
+                    {featurePoints.map((f, i) => (
+                        <div key={i} className="group text-center p-5 rounded-xl hover:bg-secondary/50 transition-colors">
+                            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-secondary group-hover:bg-accent/10 transition-colors">
+                                <f.icon className="h-5 w-5 text-muted-foreground group-hover:text-accent transition-colors" />
                             </div>
-                            <h4 className="font-semibold text-foreground mb-1">{feature.title}</h4>
-                            <p className="text-sm text-muted-foreground">{feature.desc}</p>
+                            <h4 className="mb-1.5 font-semibold text-foreground text-sm">
+                                {f.title}
+                            </h4>
+                            <p className="text-xs text-muted-foreground leading-relaxed">
+                                {f.desc}
+                            </p>
                         </div>
                     ))}
                 </div>

@@ -1,108 +1,104 @@
+import {
+    Lock,
+    Split,
+    Zap,
+    Users,
+    RotateCcw,
+    FileSearch,
+    Webhook,
+    LayoutDashboard,
+} from "lucide-react";
+
+const capabilities = [
+    {
+        icon: Lock,
+        title: "Escrow Engine",
+        description:
+            "Hold funds securely in regulated accounts until configurable conditions are met. Works with custom rules, webhooks, and manual release.",
+    },
+    {
+        icon: Split,
+        title: "Multi-Party Splits",
+        description:
+            "Distribute payments to any number of recipients with percentage or fixed-amount rules. Fees, royalties, and referrals in one pass.",
+    },
+    {
+        icon: Zap,
+        title: "Instant Disbursements",
+        description:
+            "Release funds in real time or on a schedule — daily, weekly, or triggered by business events in your platform.",
+    },
+    {
+        icon: Users,
+        title: "Recipient Onboarding",
+        description:
+            "KYC verification, Stripe account creation, and bank connection handled for you. Branded to your platform, zero compliance burden.",
+    },
+    {
+        icon: RotateCcw,
+        title: "Refunds & Reversals",
+        description:
+            "Automate proportional refunds across all split recipients when a buyer disputes or returns. No manual reconciliation needed.",
+    },
+    {
+        icon: FileSearch,
+        title: "Audit & Reporting",
+        description:
+            "Immutable event logs for every transaction, rule execution, and payout. Exportable for finance, legal, and compliance teams.",
+    },
+    {
+        icon: Webhook,
+        title: "Webhooks & Events",
+        description:
+            "Rich event stream for every payment state change. Build real-time notifications, triggers, and automations on top of VestPay.",
+    },
+    {
+        icon: LayoutDashboard,
+        title: "No-Code Dashboard",
+        description:
+            "Create and manage rulesets, view transactions, and configure payouts from a visual dashboard — no engineering required.",
+    },
+];
+
 export function CoreCapabilities() {
     return (
-        <section className="py-24 bg-muted/50">
-            <div className="container mx-auto px-4">
-                <div className="max-w-3xl mx-auto text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                        Core Capabilities
+        <section className="py-20 md:py-28 bg-background">
+            <div className="mx-auto max-w-7xl px-6">
+                {/* Header */}
+                <div className="mb-14 max-w-2xl">
+                    <p className="mb-4 text-xs font-semibold uppercase tracking-[0.1em] text-accent">
+                        Core capabilities
+                    </p>
+                    <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground leading-[1.15]">
+                        Everything built in, nothing bolted on
                     </h2>
-                    <p className="text-xl text-muted-foreground">
-                        Everything you need to manage complex payment flows
+                    <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
+                        VestPay replaces months of bespoke Stripe engineering with a
+                        battle-tested layer you can integrate in a weekend.
                     </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-                    <div>
-                        <div className="mb-8">
-                            <h3 className="text-2xl font-semibold mb-3">Smart Escrow</h3>
-                            <p className="text-muted-foreground mb-4">
-                                Hold funds securely until conditions are met. Release payments based
-                                on delivery confirmation, milestone completion, or time-based triggers.
+                {/* Grid */}
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {capabilities.map((cap) => (
+                        <div
+                            key={cap.title}
+                            className="group flex flex-col rounded-xl border border-border bg-card p-6 hover:border-accent/30 hover:shadow-md transition-all duration-200"
+                        >
+                            <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-secondary group-hover:bg-accent/10 transition-colors">
+                                <cap.icon
+                                    className="h-4.5 w-4.5 text-muted-foreground group-hover:text-accent transition-colors"
+                                    strokeWidth={1.5}
+                                />
+                            </div>
+                            <h3 className="mb-1.5 text-sm font-semibold text-foreground">
+                                {cap.title}
+                            </h3>
+                            <p className="text-xs text-muted-foreground leading-relaxed">
+                                {cap.description}
                             </p>
-                            <ul className="space-y-2 text-muted-foreground">
-                                <li className="flex items-start">
-                                    <span className="mr-2">•</span>
-                                    <span>Conditional release rules</span>
-                                </li>
-                                <li className="flex items-start">
-                                    <span className="mr-2">•</span>
-                                    <span>Multi-party approvals</span>
-                                </li>
-                                <li className="flex items-start">
-                                    <span className="mr-2">•</span>
-                                    <span>Automated refunds</span>
-                                </li>
-                            </ul>
                         </div>
-
-                        <div>
-                            <h3 className="text-2xl font-semibold mb-3">Payment Splits</h3>
-                            <p className="text-muted-foreground mb-4">
-                                Automatically distribute funds to multiple recipients with customizable
-                                split percentages and fee structures.
-                            </p>
-                            <ul className="space-y-2 text-muted-foreground">
-                                <li className="flex items-start">
-                                    <span className="mr-2">•</span>
-                                    <span>Percentage-based splits</span>
-                                </li>
-                                <li className="flex items-start">
-                                    <span className="mr-2">•</span>
-                                    <span>Fixed amount distributions</span>
-                                </li>
-                                <li className="flex items-start">
-                                    <span className="mr-2">•</span>
-                                    <span>Platform fee automation</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div className="mb-8">
-                            <h3 className="text-2xl font-semibold mb-3">Instant Disbursements</h3>
-                            <p className="text-muted-foreground mb-4">
-                                Pay out to recipients in real-time or on a schedule. Support for bank
-                                transfers, cards, and digital wallets.
-                            </p>
-                            <ul className="space-y-2 text-muted-foreground">
-                                <li className="flex items-start">
-                                    <span className="mr-2">•</span>
-                                    <span>Real-time payouts</span>
-                                </li>
-                                <li className="flex items-start">
-                                    <span className="mr-2">•</span>
-                                    <span>Scheduled disbursements</span>
-                                </li>
-                                <li className="flex items-start">
-                                    <span className="mr-2">•</span>
-                                    <span>Multi-currency support</span>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div>
-                            <h3 className="text-2xl font-semibold mb-3">Compliance & Reporting</h3>
-                            <p className="text-muted-foreground mb-4">
-                                Stay compliant with built-in KYC/AML checks, tax reporting, and
-                                detailed transaction audits.
-                            </p>
-                            <ul className="space-y-2 text-muted-foreground">
-                                <li className="flex items-start">
-                                    <span className="mr-2">•</span>
-                                    <span>Automated KYC/AML</span>
-                                </li>
-                                <li className="flex items-start">
-                                    <span className="mr-2">•</span>
-                                    <span>Tax documentation (1099s)</span>
-                                </li>
-                                <li className="flex items-start">
-                                    <span className="mr-2">•</span>
-                                    <span>Complete audit trails</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </div>
         </section>

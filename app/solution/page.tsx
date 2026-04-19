@@ -8,21 +8,21 @@ import { Comparison } from "@/components/solution/comparison";
 import { SolutionCTA } from "@/components/solution/solution-cta";
 
 export const metadata: Metadata = {
-  title: "How VestPay Works - Platform Payments Made Simple",
-  description:
-    "Learn how VestPay simplifies marketplace payments with escrow, automated splits, and instant disbursements. Built for platforms that need to move money between multiple parties.",
+    title: "Solutions – VestPay",
+    description:
+        "Learn how VestPay simplifies marketplace payments with escrow, automated splits, and instant disbursements. Built for platforms that need to move money between multiple parties.",
 };
 
 export default function SolutionPage() {
-  return (
-    <main className="min-h-screen">
-      <Header />
-      <SolutionHero />
-      <WhoItsFor />
-      <CoreCapabilities />
-      <Comparison />
-      <SolutionCTA />
-      <Footer />
-    </main>
-  );
+    return (
+        <main className="min-h-screen bg-background">
+            <Header />
+            <SolutionHero />
+            <WhoItsFor />
+            <CoreCapabilities />
+            <Comparison />
+            <SolutionCTA />
+            <Footer />
+        </main>
+    );
 }

@@ -10,18 +10,17 @@ import { CTASection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
 
 export default function Home() {
-  return (
-    <main className="min-h-screen">
-      <Header />
-      <HeroSection />
-      <LogosSection />
-      <ProblemSection />
-      <FeaturesSection />
-      <RulesetSection />
-      <ApiSection />
-      <PricingSection />
-      <CTASection />
-      <Footer />
-    </main>
-  );
+    return (
+        <main className="min-h-screen bg-background">
+            <Header />
+            <HeroSection />
+            <ProblemSection />
+            <FeaturesSection />
+            <RulesetSection />
+            <ApiSection />
+            <PricingSection />
+            <CTASection />
+            <Footer />
+        </main>
+    );
 }
