@@ -64,7 +64,7 @@ export function HeroSection() {
                     {/* Badge */}
                     <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent/8 px-4 py-1.5 text-xs font-medium text-accent">
                         <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
-                        Built on Stripe Connect · PCI-compliant
+                        Built on Stripe Connect
                     </div>
 
                     <h1 className="max-w-4xl text-balance text-5xl font-semibold tracking-tight text-foreground md:text-6xl lg:text-[4.5rem] leading-[1.05]">
